@@ -1,0 +1,66 @@
+---
+export interface Props{
+    title: string;
+    body: string;
+    dark?: boolean;
+    link?: string;
+    showLink?: boolean;
+    showContent?: boolean;
+    linkText?: string;
+    Content?: string;
+    author?: string;
+    date?: string
+}
+
+const {
+    title,
+    body,
+    dark,
+    showLink=false,
+    showContent=false,
+    link,
+    linkText='Read More',
+    Content,
+    author,
+    date
+} = Astro.props as Props;
+---
+
+<div class={`card ${dark && 'dark'}`}>
+
+    <h3>{title}</h3>
+    {showContent && <>
+        <div>
+            Written by <strong>{author}</strong> on {date}
+        </div>
+    </>}
+
+    <p>
+        {body}
+    </p>
+    {showContent && <>
+        <Content />
+    </>}
+
+    {showLink && <>
+        <a class="btn" href={link}>{linkText}</a>
+    </>}
+
+
+</div>
+
+
+<style>
+    .card {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .dark{
+        background: var(--color-primary);
+        color: #fff;
+    }
+</style>
